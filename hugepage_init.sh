@@ -1,3 +1,4 @@
+w
 #! /bin/bash
 
 huge_mnt_path="/mnt/huge"
@@ -24,7 +25,7 @@ echo "input number of hugepage you want:$hugepage_sz$hugepage_unit/hugepage"
 read hugepage_nb
 
 tot_hp=0
-let "tot_hp=hugepage_sz*512" 
+let "tot_hp=hugepage_sz*32" 
 
 echo ${hugepage_nb} > /proc/sys/vm/nr_hugepages
 
@@ -32,7 +33,10 @@ echo ${hugepage_nb} > /proc/sys/vm/nr_hugepages
 #echo "totally $tot_hp $hugepage_unit"
 
 # run test.app
-perf stat -e page-faults,LLC-load-misses,LLC-loads,LLC-store-misses,LLC-stores ./test.app -m $(echo $tot_hp)$(echo $hugepage_unit) -n 4 -l "2,4,6,8"
+./test.app -m $(echo $tot_hp)$(echo $hugepage_unit) -n 4 -l "2,4,6,8"
+
+# run perf test.app
+#perf stat -e page-faults,LLC-load-misses,LLC-loads,LLC-store-misses,LLC-stores ./test.app -m $(echo $tot_hp)$(echo $hugepage_unit) -n 4 -l "2,4,6,8"
 
 # clear hugepage fs
 umount "$huge_mnt_path"
