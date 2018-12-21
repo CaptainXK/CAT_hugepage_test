@@ -12,7 +12,7 @@
 
 #define MAX_THD_NB 32
 
-#define RUN_INFI 0
+#define RUN_INFI 1
 
 //shared data
 struct shared_data{
