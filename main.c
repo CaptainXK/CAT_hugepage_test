@@ -112,7 +112,7 @@ int main(int argc, char** argv){
 
 	time_stop();
 
-	time_report();
+	time_report(ms);
 
     //all stop
     all_stop();
